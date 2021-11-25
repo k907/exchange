@@ -1,8 +1,8 @@
 package com.kuzmenko.exchange.config;
 
 
-import com.kuzmenko.exchange.dto.CustomerDto;
-import com.kuzmenko.exchange.dto.WalletDto;
+import com.kuzmenko.exchange.dto.CustomerDTO;
+import com.kuzmenko.exchange.dto.WalletDTO;
 import com.kuzmenko.exchange.entity.Customer;
 import com.kuzmenko.exchange.entity.Wallet;
 import ma.glasnost.orika.MapperFactory;
@@ -14,16 +14,12 @@ public class MapperConfig extends ConfigurableMapper {
 
     @Override
     protected void configure(MapperFactory factory) {
-        factory.classMap(Customer.class, CustomerDto.class)
-                .mapNulls(false)
+        factory.classMap(Customer.class, CustomerDTO.class)
+                .mapNulls(true)
                 .byDefault()
                 .register();
-        factory.classMap(CustomerDto.class, Customer.class)
-                .mapNulls(false)
-                .byDefault()
-                .register();
-        factory.classMap(Wallet.class, WalletDto.class)
-                .mapNulls(false)
+        factory.classMap(Wallet.class, WalletDTO.class)
+                .mapNulls(true)
                 .byDefault()
                 .register();
     }

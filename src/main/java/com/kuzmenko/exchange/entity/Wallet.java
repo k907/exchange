@@ -1,5 +1,6 @@
 package com.kuzmenko.exchange.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,25 +20,26 @@ public class Wallet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
 
-    CurrencyEnum currency;
+    String currency;
 
-    BigDecimal ammount;
+    BigDecimal amount;
 
     @Column(name = "last_update")
     Timestamp lastModify;
 
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id", nullable = false)
-//    Customer customer;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    Customer customer;
 
     @Override
     public String toString() {
         return "Wallet{" +
                 "id=" + id +
                 ", currency=" + currency +
-                ", ammount=" + ammount +
+                ", ammount=" + amount +
                 ", lastModify=" + lastModify +
                 '}';
     }

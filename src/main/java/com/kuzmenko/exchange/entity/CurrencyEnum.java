@@ -1,7 +1,7 @@
 package com.kuzmenko.exchange.entity;
 
 public enum CurrencyEnum {
-    UAH ("UAH"), USD ("USD"), EUR ("EUR");
+    UAH("UAH"), USD("USD"), EUR("EUR");
 
     private String cur;
 

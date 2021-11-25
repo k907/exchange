@@ -1,5 +1,6 @@
 package com.kuzmenko.exchange.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +20,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
 
     @Column(name = "first_name")
     String firstName;
@@ -29,9 +30,8 @@ public class Customer {
 
     String phone;
 
-    //@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     List<Wallet> wallets;
 
     public void addWallet(Wallet wallet) {
@@ -39,7 +39,7 @@ public class Customer {
             wallets = new ArrayList<>();
         }
         wallets.add(wallet);
-        // wallet.setCustomer(this);
+        wallet.setCustomer(this);
     }
 
     @Override

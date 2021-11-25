@@ -5,13 +5,11 @@ import com.kuzmenko.exchange.entity.Wallet;
 
 import java.util.List;
 
-public interface UserService {
+public interface CustomerService {
 
-    int createUser(Customer user);
+    int createCustomer(Customer user);
 
     List<Customer> findAllUsers();
-
-    Customer findUserByLastName(String lastName);
 
     Customer findUserByPhone(String phone);
 

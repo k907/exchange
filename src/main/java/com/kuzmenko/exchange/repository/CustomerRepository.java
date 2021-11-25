@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<Customer, Long> {
-
-    Customer findUserByFirstName(String name);
-
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findUserByPhone(String phone);
 }

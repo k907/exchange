@@ -19,7 +19,7 @@ public class Rate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    Integer id;
 
     CurrencyEnum currency;
     BigDecimal sale;
