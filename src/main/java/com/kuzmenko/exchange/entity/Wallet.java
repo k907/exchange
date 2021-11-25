@@ -19,11 +19,7 @@ public class Wallet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    int id;
 
     CurrencyEnum currency;
 
@@ -31,4 +27,18 @@ public class Wallet {
 
     @Column(name = "last_update")
     Timestamp lastModify;
+
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id", nullable = false)
+//    Customer customer;
+
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "id=" + id +
+                ", currency=" + currency +
+                ", ammount=" + ammount +
+                ", lastModify=" + lastModify +
+                '}';
+    }
 }
