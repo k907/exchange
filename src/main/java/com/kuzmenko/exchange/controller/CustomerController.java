@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 @Slf4j
 public class CustomerController {
@@ -36,7 +36,6 @@ public class CustomerController {
 
     @GetMapping("/{phone}")
     public Customer getCustomerByPhone(@PathVariable String phone) {
-        System.out.println("Вызов getCustomerByPhone = " + phone);
         return customerService.findUserByPhone(phone);
     }
 

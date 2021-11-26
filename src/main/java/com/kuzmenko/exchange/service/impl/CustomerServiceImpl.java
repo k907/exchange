@@ -4,6 +4,7 @@ import com.kuzmenko.exchange.config.MapperConfig;
 import com.kuzmenko.exchange.entity.CurrencyEnum;
 import com.kuzmenko.exchange.entity.Customer;
 import com.kuzmenko.exchange.entity.Wallet;
+import com.kuzmenko.exchange.exсeption.CustomerNotFoundException;
 import com.kuzmenko.exchange.repository.CustomerRepository;
 import com.kuzmenko.exchange.repository.WalletRepository;
 import com.kuzmenko.exchange.service.CustomerService;
@@ -70,8 +71,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findUserByPhone(String phone) {
-        return findUserByPhone(phone);
+    public Customer findUserByPhone(String phone) throws CustomerNotFoundException {
+        return customerRepository.findUserByPhone(phone).orElseThrow(() -> new CustomerNotFoundException("Customer with phone = " + phone + " not found"));
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.kuzmenko.exchange.integration;
 import com.kuzmenko.exchange.entity.CurrencyEnum;
 import com.kuzmenko.exchange.entity.Customer;
 import com.kuzmenko.exchange.entity.Wallet;
+import com.kuzmenko.exchange.exсeption.ExceptionData;
 import com.kuzmenko.exchange.repository.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomerControllerIntegrationTest {
 
-    private final String URL = "/api/user";
+    private final String URL = "/api/users";
     private final String PHONE_NUMBER = "123456789";
 
     @Autowired
@@ -62,6 +63,13 @@ public class CustomerControllerIntegrationTest {
         Customer customer1 = customerRepository.findById(id).get();
         assertThat(customer.getPhone(), is(customer1.getPhone()));
         assertThat(customer1.getWallets(), hasSize(3));
+    }
+
+    @Test
+    public void testCustomerNotFoundByPhoneException() {
+        ExceptionData data = restTemplate.getForObject(URL + "/{phone}", ExceptionData.class, 1);
+        assertThat(data.getInfo(), is("Customer with phone = 1 not found"));
+        //assertThrows(CustomerNotFoundException.class, () -> restTemplate.getForObject(URL + "/{phone}", Customer.class, 1));
     }
 
     // ошибка переполнения стека
