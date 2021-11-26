@@ -5,6 +5,7 @@ import com.kuzmenko.exchange.entity.Customer;
 import com.kuzmenko.exchange.entity.Wallet;
 import com.kuzmenko.exchange.exсeption.ExceptionData;
 import com.kuzmenko.exchange.repository.CustomerRepository;
+import com.sun.org.apache.regexp.internal.RE;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +49,6 @@ public class CustomerControllerIntegrationTest {
                 null, new ParameterizedTypeReference<List<Customer>>() {
                 });
 
-
         List<Customer> customers = response.getBody();
         System.out.println(customers);
         assertThat(customers, hasSize(3));
@@ -68,20 +68,23 @@ public class CustomerControllerIntegrationTest {
     @Test
     public void testCustomerNotFoundByPhoneException() {
         ExceptionData data = restTemplate.getForObject(URL + "/{phone}", ExceptionData.class, 1);
+//        ResponseEntity<ExceptionData> response = restTemplate.getForEntity(....);
+
         assertThat(data.getInfo(), is("Customer with phone = 1 not found"));
+        // TODO добавть проверку статуса
         //assertThrows(CustomerNotFoundException.class, () -> restTemplate.getForObject(URL + "/{phone}", Customer.class, 1));
     }
 
     // ошибка переполнения стека
-//    @Test
-//    public void testGetCustomerByPhone() {
-//        addCustomerToDatabase(createCustomer());
-//
-//        Customer customer = restTemplate.getForObject(URL + "/{phone}", Customer.class, PHONE_NUMBER);
-//        System.out.println(customer);
-//        assertThat(customer, notNullValue());
-//        assertThat(customer.getPhone(), is(PHONE_NUMBER));
-//    }
+    @Test
+    public void testGetCustomerByPhone() {
+        addCustomerToDatabase(createCustomer());
+
+        Customer customer = restTemplate.getForObject(URL + "/{phone}", Customer.class, PHONE_NUMBER);
+        System.out.println(customer);
+        assertThat(customer, notNullValue());
+        assertThat(customer.getPhone(), is(PHONE_NUMBER));
+    }
 
     @Test
     public void testGetWalletsByPhone() {

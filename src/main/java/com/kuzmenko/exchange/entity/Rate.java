@@ -1,16 +1,14 @@
 package com.kuzmenko.exchange.entity;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "rate")
@@ -19,10 +17,11 @@ public class Rate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     Integer id;
 
-    CurrencyEnum currency;
-    BigDecimal sale;
-    BigDecimal buy;
+    String currency;
+    Float sale;
+    Float buy;
     Timestamp receive;
 }
